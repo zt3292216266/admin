@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="user_demo_customer" />
+
+
+    <!-- 使用zookeeper注册中心暴露服务地址
+         接口在暴露时把接口url路径存入zookeeper
+    -->
+    <dubbo:registry protocol="zookeeper" address="localhost:2181" />
+
+    <!-- 声明需要暴露的服务接口
+          interface需要暴露的接口
+          ref="demoService" 需要暴露的实现类
+          reference 接口引用
+          demoService 注入到spring环境中的id
+          loadbalence 负载均衡
+    -->
+    <dubbo:reference id="userService"
+                     interface="com.jk.service.UserService"/>
+</beans>
